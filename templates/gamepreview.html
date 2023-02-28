@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/gamepreviewcss.css">
+        <link rel="stylesheet" href="/static/css/gamecss.css">
+        <title>snake</title>
+        <script>
+            var moves =  {{moves|safe}};
+            var completed = []
+            for (let i = 0; i < moves.length; i++){
+                completed.push(false);
+            }
+            var currentStomach = [];
+            function animateDots(){
+                element = document.getElementById("dots");
+                if (completed.length > 0 && !completed[completed.length-1]){
+                    setTimeout(function(){
+                        if (element.innerHTML == "..."){
+                            element.innerHTML = "";
+                        }
+                        else{
+                            element.innerHTML += ".";
+                        }   
+                        animateDots();
+                    }, 500);
+                }
+                else{
+                    status = "{{status|safe}}";
+                    switch(status){
+                        case "win":
+                            element.innerHTML = "You have completed the level!";
+                            break;
+
+                        case "suboptimal":
+                            element.innerHTML = "You have swallowed too much, try again!";
+                            break;
+
+                        case "stomach overflow":
+                            element.innerHTML = "Pythin's stomach is full!";
+                            break;
+                        
+                        case "tiger overflow":
+                            element.innerHTML = "There are too many tiger in Pythin's stomach!";
+                            break;
+                        
+                        case "ongoing":
+                            element.innerHTML = "The yard has not been cleared, Pythin gunna get some spanking";
+                            break;
+                            
+                        default:
+                            element.innerHTML = "There is an error: " + status;
+
+                    }
+                }
+            }
+
+            function animateClearYard(i){
+                if (i >= moves.length || completed[i]){
+                    return;
+                }
+                console.log("i: " + i)
+                var move = moves[i]
+                console.log("move: " + move)
+                if (typeof move == "number"){
+                    console.log("Eating item " + move)
+                    var itemElement = document.getElementById(`item${move}`);
+                    var stomachElement = document.getElementById(`stomach${currentStomach.length}`);
+                    var itemRect = itemElement.getBoundingClientRect();
+                    var stomachRect = stomachElement.getBoundingClientRect();
+                    var horizontalDist = stomachRect.left-itemRect.left;
+                    var verticalDist = stomachRect.top-itemRect.top;
+                    itemElement.style.transition = "transform 0.5s ease-in-out"
+                    itemElement.style.transform = `translate(${horizontalDist}px,${verticalDist}px)`;
+                    currentStomach.push(move)
+                    console.log(`translate(${horizontalDist},${verticalDist})`)
+                    itemElement.addEventListener("transitionend", () => {
+                        completed[i] = true;
+                        animateClearYard(i+1)
+                    })
+                }
+                else if (move == "S"){
+                    console.log("Swallowing")
+                    var stomachElements = [];
+                    for (let item in currentStomach){
+                        stomachElements.push(document.getElementById(`item${currentStomach[item]}`))
+                    }
+                    for (let element in stomachElements){
+                        stomachElements[element].style.transition = "opacity 0.5s ease-in-out";
+                        stomachElements[element].style.opacity = 0;
+                    }
+                    stomachElements[currentStomach.length-1].addEventListener("transitionend", ()=>{
+                        currentStomach = []
+                        completed[i] = true;
+                        animateClearYard(i+1)
+                    })
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="levelNumber">
+            <h2>Level {{level_number}}</h2>
+        </div>
+        <div id="yard">
+            {%for i in range(images|length)%}
+            <div class="item" >
+                <img class="itemImage" src="{{url_for('static',filename=images[i])}}" id="item{{i}}"><br>
+                <b>{{i}}</b>
+            </div>
+            {%endfor%}
+        </div>
+        <div id="wholeStomach">
+            {%for i in range(3)%}
+            <div class="stomach" id="stomach{{i}}"></div>
+            {%endfor%}
+        </div>
+        <br>
+        <div id="buttonContainer"><button class="startButton" onclick="animateClearYard(0);animateDots()">Start simulation</button></div>
+        <br><b style="margin:30px;font-size: 50px;">Result: </b><b id="dots" style="font-size:50px;"></b>
+        
+    </body>
+</html>

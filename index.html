@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    function sendCode(){
+        
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snake</title>
+</head>
+<body>
+    <h2>Level {level_number}</h2>
+    <div id="problemDescription">{level_description}</div>
+    <div id="foods">
+        {%for food in foods%}
+        
+        {%endfor%}
+    </div>
+    <div id="snake">
+        {%for i in range(3)%}
+        <div class="snakeSquare"></div>
+        {%endfor%}
+    </div>
+    <div id="inputDescription">
+        You will now need to write a python code to solve the problem above.
+        You can call the function <i>swallow()</i> to swallow whatever is inside the
+        snake's stomach. You can also call the function <i>eat(num)</i> to eat the food
+        with the label <i>num</i>. Enter your python code below: <br>
+        <input type="text" name="pythonCode">
+    </div>
+</body>
+</html>

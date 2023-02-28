@@ -1,0 +1,38 @@
+#yard{
+    background-image: url('/static/images/grass.jpg');
+    width: 96%;
+    margin: 30px;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+#wholeStomach{
+    display: flex;
+    flex-direction: row;
+    margin: 30px;
+    justify-content: center;
+}
+
+.stomach{
+    width: 50px;
+    height: 50px;
+    margin: 30px;
+    border: 5px solid white;
+}
+
+.startButton{
+    margin: 30px;
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+    background-color: darkgreen;
+    border-radius: 30px;
+    border: solid 0px darkgreen;
+}
+
+#buttonContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

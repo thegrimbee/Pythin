@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/gamecss.css')}}">
+        <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
+        <link rel="stylesheet" href="/static/codemirror/theme/dracula.css">
+        <script src="/static/codemirror/lib/codemirror.js"></script>
+        <script src="/static/codemirror/mode/python/python.js"></script>
+        <title>snake</title>
+    </head>
+    <body>
+        <div id="levelNumber">
+        <h2>Level {{level_number}}</h2>
+        </div>
+        <p>Pythin the thin python is tasked to clear all the things
+            in the yard. One way Pythin can do that is by swallowing the things in the yard.
+            However, Pythin can only fit 3 food at a time in his stomach and he wants to swallow
+            as little times as possible since he is lazy. As the level progresses, new types
+            of foods will be introduced. Help Pythin so that he can clear the yard with the
+            least amount of swallows possible!
+        </p>
+        <div id="problem">
+            <div id="example">
+                {%for i in range(7)%}
+                <div class="item">
+                    <img class="itemImage" src="{{url_for('static',filename=images[i])}}"><br>
+                    <b>{{i}}</b>
+                </div>
+                {%endfor%}
+            </div>
+            <div id = "levelDescription">
+                <p>{{level_description}}</p>
+            </div>
+        </div>
+        
+        <p>
+            You will now need to write a python code to solve the problem above.
+            To do so, you will need to implement a function named <i>clear_yard()</i>
+            with the parameter pythin which is a <i>Pythin</i> object.<br><br>
+            To help you solve the problem, <i>Pythin</i> is equipped with the following methods:
+            <ul>
+                <li><i>is_full()</i>: returns True if Pythin's stomach is full and false otherwise</li>
+                <li><i>get_items()</i>: returns the list of things in the yard. For this level's example,
+                the function would return {{examples}}</li>
+                <li><i>peek_stomach(i)</i>: returns a list representing Pythin's current stomach</li>
+                <li><i>eat(i)</i>: Pythin eats the item in the yard with index i</li>
+                <li><i>swallow()</i>: Pythin swallows whatever is inside its stomach</li>
+            </ul>
+        </p> <br>
+        <form action="/level{{level_number}}" method="POST">
+            <div id="codeOutline">
+                <textarea id="code" name="code">{{code}}</textarea>
+                <script>
+                    var editor = CodeMirror.fromTextArea
+                    (document.getElementById('code'), {
+                        mode: "python",
+                        theme: "dracula"
+                    });
+
+                </script>
+                <br>
+            </div>
+        <input type="submit" name="submit" value="Submit code" style="margin-left:30px;">
+        </form>
+        
+    </body>
+</html>

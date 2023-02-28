@@ -1,0 +1,18 @@
+{
+	"levelDescription":
+	[
+	"The first type of food is the rat. The rat has no special characteristics and is thus the simplest type of food to deal with",
+	"The second type of food is the tiger. Unlike the rat, pythin cannot store more than one tiger in his stomach as he is too thin."
+	],
+	"examples":
+	[
+		["rat", "rat", "rat", "rat", "rat", "rat", "rat"],
+        ["rat", "tiger", "rat", "tiger", "rat", "tiger", "rat"]
+	],
+	"images":
+	{
+		"rat":"images/rat.jpg",
+		"tiger":"images/tiger.png"
+	}
+	
+}
