@@ -21,15 +21,6 @@
     border: 5px solid white;
 }
 
-.startButton{
-    margin: 30px;
-    height: 50px;
-    width: 100px;
-    cursor: pointer;
-    background-color: darkgreen;
-    border-radius: 30px;
-    border: solid 0px darkgreen;
-}
 
 #buttonContainer{
     display: flex;

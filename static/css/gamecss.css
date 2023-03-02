@@ -56,3 +56,14 @@ textarea{
     margin: 30px;
     margin-bottom: 0px;
 }
+
+.button{
+    margin: 30px;
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+    background-color: #367b39;
+    border-radius: 5px;
+    color: rgba(255, 255, 255, 0.75);
+    border: solid 0px #CCCCCC;
+}
